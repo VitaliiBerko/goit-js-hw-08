@@ -1,7 +1,10 @@
 import Vimeo from '@vimeo/player';
+import throttle from 'lodash.throttle';
+
 
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
+const STORAGE_KEY = "videoplayer-current-time";
 
 player.on('play', function() {
     console.log('played the video!');
@@ -11,26 +14,28 @@ player.getVideoTitle().then(function(title) {
     console.log('title:', title);
 });
 
-const timeupdate = {
-    duration: 61.857,
-    percent: 0.049,
-    seconds: 3.034
+const timeupdate = {};
+
+// const onPlay = function(data) {
+//    timeupdate.event
+//     // data is an object containing properties specific to that event//     
+    
+//         // videoplayer-current-time: timeupdate.seconds
+    
+// };
+function onPlay(e) {
+    timeupdate[e.target.name] = e.target.value;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(timeupdate))
 }
 
-const onPlay = function(data) {   
-   timeupdate.event 
-    // data is an object containing properties specific to that event
-    _.throttle(()=>{}, 100)
-    
-        // videoplayer-current-time: timeupdate.seconds
-    
-};
-
-player.on('play', onPlay(timeupdate));
+player.on('play',throttle(onPlay, 1000));
 
 
-player.setCurrentTime(30.456).then(function(seconds) {
+player.setCurrentTime(seconds).then(function(seconds) {
     // seconds = the actual time that the player seeked to
+    
+    seconds = JSON.parse(localStorage.getItem(STORAGE_KEY)).seconds;
+    
 }).catch(function(error) {
     switch (error.name) {
         case 'RangeError':

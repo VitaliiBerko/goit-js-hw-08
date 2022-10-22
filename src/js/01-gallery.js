@@ -2,13 +2,13 @@
 import { galleryItems } from './gallery-items';
 // Change code below this line
 // import SimpleLightbox from "simplelightbox";
-import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm";
+// / Описаний в документації
+import SimpleLightbox from "simplelightbox";
+// Додатковий імпорт стилів
 import "simplelightbox/dist/simple-lightbox.min.css";
 import galleryTmp from '../templates/gallery.hbs'
 
 // console.log(galleryTmp);
-
-// console.log(galleryItems);
 
 
 const galleryContainer = document.querySelector('.gallery');
@@ -22,6 +22,11 @@ galleryContainer.addEventListener('click', onGalleryContainerClick);
 function createPhotoCardMarkup(galleryItems) {
     return galleryItems.map(galleryTmp).join('');     
 }
+
+// <a class="gallery__item" href="{{original}}">
+//   <img class="gallery__image" src="{{preview}}" alt="{{description}}" />
+// </a>
+    
 
 const lightBox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
