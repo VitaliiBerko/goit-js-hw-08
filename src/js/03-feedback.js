@@ -29,7 +29,6 @@ function onFormInput(e) {
 }
 
 function populateText() {
-
     const saveMssage = JSON.parse(localStorage.getItem(STORAGE_KEY));    
 
     if(saveMssage) {
