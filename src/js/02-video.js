@@ -9,20 +9,13 @@ const STORAGE_KEY = "videoplayer-current-time";
 player.on('play', function() {
     console.log('played the video!');
 });
-
 // player.getVideoTitle().then(function(title) {
 //     console.log('title:', title);
 // });
 
 const timeupdate = {};
 
-// const onPlay = function(data) {
-//    timeupdate.event
-//     // data is an object containing properties specific to that event//     
-    
-//         // videoplayer-current-time: timeupdate.seconds
-    
-// };
+
 function onPlay(e) {
     timeupdate[e.target.name] = e.target.value;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(timeupdate))
@@ -31,10 +24,11 @@ function onPlay(e) {
 player.on('play',throttle(onPlay, 1000));
 
 
-player.setCurrentTime(seconds).then(function(seconds) {
+
+player.setCurrentTime().then(function(seconds) {
     // seconds = the actual time that the player seeked to
     
-    seconds = JSON.parse(localStorage.getItem(STORAGE_KEY)).seconds;
+    // const seconds = JSON.parse(localStorage.getItem(STORAGE_KEY)).seconds;
     
 }).catch(function(error) {
     switch (error.name) {
