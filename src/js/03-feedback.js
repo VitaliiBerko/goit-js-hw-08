@@ -29,11 +29,19 @@ function onFormInput(e) {
 }
 
 function populateText() {
-    const saveMssage = JSON.parse(localStorage.getItem(STORAGE_KEY));    
-
+    const saveMssage = JSON.parse(localStorage.getItem(STORAGE_KEY));   
     if(saveMssage) {
+
+    if(saveMssage.email) {
         refs.email.value = saveMssage.email;
+    }        
+    
+    if(saveMssage.message) {
         refs.message.value = saveMssage.message;
     }
+    
+}
+
+    
 }
 
